@@ -1,0 +1,63 @@
+.main_slider {
+    display:flex;
+    /* span과 div를 일정한 간격으로 일렬로 배치 */
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: #362021;
+    padding: 30px;
+
+    position: relative;
+    height: 80vh;
+
+    /* 요소의 크기를 고정한채  여백 주기*/
+    box-sizing: border-box;
+}
+.main_slider-btn i{
+    transform: scale(1.7);
+    padding: 40px;
+    color: white;
+    cursor: pointer;
+}
+.main_slider-text {
+    color:white;
+    font-size: 40px;
+    font-weight: 600;
+}
+.main_slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.main_slider-image-container {
+    width: 400px;
+    height: 500px;
+    border:1px solid red;
+    /* 위에 정한 크기보다 크면 이미지를 잘라냄 */
+    overflow: hidden;
+
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    margin: 15px 0;
+}
+
+/* 이미지 배치 */
+.main_slider-image {
+    /* 이미지의 가로, 세로 사이즈를 100% 설정*/
+    width: 105%;
+    height: 100%;
+    /* 위의 비율을 유지한 채 이미지가 찌그러지지 않고 꽉차게*/
+    object-fit: cover;
+    
+}
+
+.main_slider-title {
+    color:white;
+    font-size: 80px;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}

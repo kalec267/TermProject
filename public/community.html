@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Community</title>
+        <link rel="stylesheet" href="css/components/header.css">
+        <link rel="stylesheet" href="css/community.css">
+        <!-- 폰트어썸 키트 키(아이콘 가져와서 사용하기) -->
+        <script src="https://kit.fontawesome.com/1031601f06.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div id="header"></div>
+
+        <div class="container">
+            <h1>Q&A</h1>
+
+            <!-- 메뉴 -->
+            <ul class="menu">
+            </ul>
+
+            <!-- 게시판 테이블 -->
+            <table id="boardTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>제목</th>
+                        <th>글쓴이</th>
+                        <th>작성시간</th>
+                    </tr>
+                </thead>
+                <tbody id="postList">
+                    <!-- JS로 게시글 렌더링 -->
+                </tbody>
+            </table>
+
+            <!-- 검색 -->
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Search">
+                <button id="writeBtn">글쓰기</button>
+            </div>
+        </div>
+
+        <script src="js/community.js"></script>
+    </body>
+</html>

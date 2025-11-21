@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>회원등록관리</title>
+        <script src="https://kit.fontawesome.com/1031601f06.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="css/components/header.css">
+        <link rel="stylesheet" href="css/signUp.css">
+
+    </head>
+
+    <body>
+        <div id="header"></div>
+
+        <div id="wrapper" class="wrapper">
+            <form id="registrationForm" class="registrationForm">
+
+                <h2>Sign Up</h2>
+                
+                <div class="inputGroup">
+                    <label for="userName">User Name</label>
+                    <input type="text" id="userName" class="userNameInput">
+                    <span class="helperText"></span>
+                </div>
+
+                <div class="inputGroup">
+                    <label for="userId">User ID</label>
+                    <input type="text" id="userId" class="idInput">
+                    <span class="helperText"></span>
+                </div>
+
+                <div class="inputGroup">
+                    <label for="userPassword">Password</label>
+                    <input
+                        type="password"
+                        id="userPassword"
+                        class="passwordInput"
+                        required="required"
+                        minlength="8"
+                        maxlength="20"
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}">
+                    <span class="helperText"></span>
+                </div>
+
+                <div class="inputGroup">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="confirmPasswordInput">
+                    <span class="helperText"></span>
+                </div>
+
+                <div class="inputGroup">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" class="emailInput">
+                    <span class="helperText"></span>
+                </div>
+
+                <div class="inputGroup">
+                    <label for="userPhone">Phone</label>
+                    <input type="tel" id="userPhone" class="phoneInput">
+                    <span class="helperText"></span>
+                </div>
+                
+                <div class="inputGroup">
+                    <label for="userAddress">Address</label>
+                    <input type="text" id="userAddress" class="addressInput">
+                    <span class="helperText"></span>
+                </div>
+
+                <div class="inputGroup">
+                    <label for="userZipCode">Zip Code</label>
+                    <input type="text" id="userZipCode" class="zipCodeInput">
+                    <span class="helperText"></span>
+                </div>
+
+                <button type="submit">Submit</button>
+
+            </form>
+        </div>
+        <script src="js/signUp.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,13 @@
+@import "../common.css";
+@import "../reset.css";
+@import "../components/header.css";
+@import "../components/footer.css";
+@import "../slider.css";
+@import "../month-best.css";
+@import "../intro.css";
+
+/* 폰트 적용 */
+body {
+    font-family: "Playfair Display", serif;
+}
+

@@ -1,0 +1,70 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 900px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.menu li {
+    margin: 0 15px;
+    cursor: pointer;
+    color: #555;
+}
+
+.menu li.active {
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table thead {
+    background: #f2f2f2;
+}
+
+table td,
+table th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.search-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.search-container input {
+    padding: 5px;
+    width: 200px;
+}
+
+.search-container button {
+    padding: 5px 10px;
+    cursor: pointer;
+}

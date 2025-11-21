@@ -1,0 +1,13 @@
+@import "../reset.css";
+@import "components/header.css";
+@import "../components/footer.css";
+@import "intro.css";
+@import "../slider.css";
+@import "../month-best.css";
+@import "../community.css";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+/* 폰트 적용 */
+body {
+    font-family: "Playfair Display", serif;
+}
