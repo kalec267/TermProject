@@ -43,32 +43,33 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         let title = req.body.title;
         if (!title) 
-            title = path
-                .parse(file.originalname)
-                .name; // 제목이 없으면 원본 파일명
-        // 공백 제거 및 안전한 파일명 처리
+            title = path.parse(file.originalname).name;
+
         title = title
             .replace(/\s+/g, '_')
             .replace(/[^\w\-ㄱ-ㅎ가-힣]/g, '');
-        // 확장자는 원본 유지
         const ext = path.extname(file.originalname);
         cb(null, title + ext);
     }
 });
 const upload = multer({storage});
 
-// ⭐ MongoDB 스키마 + 모델
-const ImageSchema = new mongoose.Schema({title: String, imageUrl: String});
-const Image = mongoose.model('Image', ImageSchema);
+// ⭐ MongoDB 스키마 + BannerImg 모델(컬렉션명 강제 지정)
+const BannerImgSchema = new mongoose.Schema({
+    title: String,
+    imageUrl: String
+});
+
+// << 여기 중요!!! 컬렉션명 직접 지정: 'bannerimg' >>
+const BannerImg = mongoose.model('BannerImg', BannerImgSchema, 'bannerimg');
+
 
 // ------------------------- 로그인 API -----------------------------
 app.post('/api/login', async (req, res) => {
     const {userId, userPassword} = req.body;
 
     try {
-        const [adminRows] = await db
-            .promise()
-            .query('SELECT * FROM admins WHERE adminId = ?', [userId]);
+        const [adminRows] = await db.promise().query('SELECT * FROM admins WHERE adminId = ?', [userId]);
 
         if (adminRows.length > 0) {
             const admin = adminRows[0];
@@ -80,20 +81,14 @@ app.post('/api/login', async (req, res) => {
                     name: admin.adminName,
                     role: 'admin'
                 };
-                return res
-                    .status(200)
-                    .json({message: `관리자 로그인 성공!`, userName: admin.adminName, role: 'admin'});
+                return res.status(200).json({message: `관리자 로그인 성공!`, userName: admin.adminName, role: 'admin'});
             }
         }
 
-        const [userRows] = await db
-            .promise()
-            .query('SELECT * FROM users WHERE userId = ?', [userId]);
+        const [userRows] = await db.promise().query('SELECT * FROM users WHERE userId = ?', [userId]);
 
-        if (userRows.length === 0) 
-            return res
-                .status(401)
-                .json({message: '로그인 실패'});
+        if (userRows.length === 0)
+            return res.status(401).json({message: '로그인 실패'});
         
         const user = userRows[0];
         const match = await bcrypt.compare(userPassword, user.userPassword);
@@ -104,20 +99,14 @@ app.post('/api/login', async (req, res) => {
                 name: user.userName,
                 role: 'user'
             };
-            return res
-                .status(200)
-                .json({message: `로그인 성공`, userName: user.userName, role: 'user'});
+            return res.status(200).json({message: `로그인 성공`, userName: user.userName, role: 'user'});
         }
 
-        res
-            .status(401)
-            .json({message: '로그인 실패'});
+        res.status(401).json({message: '로그인 실패'});
 
     } catch (err) {
         console.error('DB 오류:', err);
-        res
-            .status(500)
-            .json({message: '서버 오류 발생'});
+        res.status(500).json({message: '서버 오류 발생'});
     }
 });
 
@@ -130,27 +119,21 @@ app.get('/check-login', (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-    req
-        .session
-        .destroy(err => {
-            if (err) 
-                return res
-                    .status(500)
-                    .json({message: '로그아웃 실패'});
-            res.json({message: '로그아웃 성공'});
-        });
+    req.session.destroy(err => {
+        if (err)
+            return res.status(500).json({message: '로그아웃 실패'});
+        res.json({message: '로그아웃 성공'});
+    });
 });
 
-// ------------------------- 이미지 업로드 API -----------------------
 
+// ------------------------- 이미지 업로드 API -----------------------
 app.post('/api/upload-image', upload.single('image'), async (req, res) => {
     try {
-        if (!req.file) 
-            return res
-                .status(400)
-                .json({success: false, message: "파일이 없음"});
+        if (!req.file)
+            return res.status(400).json({success: false, message: "파일이 없음"});
         
-        const newImage = await Image.create({
+        const newImage = await BannerImg.create({
             title: req.body.title || "",
             imageUrl: `/MongoImg/${req.file.filename}`
         });
@@ -159,48 +142,36 @@ app.post('/api/upload-image', upload.single('image'), async (req, res) => {
 
     } catch (err) {
         console.error("이미지 업로드 오류:", err);
-        res
-            .status(500)
-            .json({success: false, message: "이미지 업로드 실패"});
+        res.status(500).json({success: false, message: "이미지 업로드 실패"});
     }
 });
 
-// ------------------------- 이미지 불러오기 API -----------------------
 
-app.get('/api/images', async (req, res) => {
+// ------------------------- 이미지 불러오기 API -----------------------
+app.get('/api/BannerImg', async (req, res) => {
     try {
-        const images = await Image.find();
+        const images = await BannerImg.find();
         res.json(images);
     } catch (err) {
         console.error("이미지 조회 오류:", err);
-        res
-            .status(500)
-            .json({message: "이미지 조회 실패"});
+        res.status(500).json({message: "이미지 조회 실패"});
     }
 });
 
-//최신 이미지 가져오기
-app.get('/api/images/latest', async (req, res) => {
+// 최신 이미지 가져오기
+app.get('/api/BannerImg/latest', async (req, res) => {
     try {
-        const latestImage = await Image
-            .findOne()
-            .sort({_id: -1});
-        if (!latestImage) 
-            return res
-                .status(404)
-                .json({message: '이미지 없음'});
+        const latestImage = await BannerImg.findOne().sort({_id: -1});
+        if (!latestImage)
+            return res.status(404).json({message: '이미지 없음'});
         res.json(latestImage);
     } catch (err) {
         console.error("최신 이미지 조회 오류:", err);
-        res
-            .status(500)
-            .json({message: "이미지 조회 실패"});
+        res.status(500).json({message: "이미지 조회 실패"});
     }
 });
-// ------------------------- 서버 실행 -------------------------------
 
+
+// ------------------------- 서버 실행 -------------------------------
 const PORT = 3000;
-app.listen(
-    PORT,
-    () => console.log(`>>> Server running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`>>> Server running on http://localhost:${PORT}`));

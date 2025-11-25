@@ -224,7 +224,7 @@
         <script>
             async function loadMainSliderImage() {
                 try {
-                    const res = await fetch('/api/images/latest');
+                    const res = await fetch('/api/bannerimg/latest');
                     const latestImage = await res.json();
 
                     if (latestImage && latestImage.imageUrl) {
