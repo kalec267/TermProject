@@ -26,13 +26,13 @@ app.use(session({
     }
 }));
 
-// ⭐ MongoDB 연결 (img DB)
+//   MongoDB 연결
 mongoose
     .connect('mongodb://localhost:27017/img')
     .then(() => console.log(">>> MongoDB Connected"))
     .catch(err => console.log(err));
 
-// ⭐ 이미지 public 경로
+//   이미지 public 경로
 app.use('/MongoImg', express.static('MongoImg'));
 
 // multer 저장 설정
@@ -54,7 +54,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({storage});
 
-// ⭐ MongoDB 스키마 + BannerImg 모델(컬렉션명 강제 지정)
+//   MongoDB 스키마 + BannerImg 모델(컬렉션명 강제 지정)
 const BannerImgSchema = new mongoose.Schema({
     title: String,
     imageUrl: String
@@ -64,7 +64,7 @@ const BannerImgSchema = new mongoose.Schema({
 const BannerImg = mongoose.model('BannerImg', BannerImgSchema, 'bannerimg');
 
 
-// ------------------------- 로그인 API -----------------------------
+//    로그인 API     
 app.post('/api/login', async (req, res) => {
     const {userId, userPassword} = req.body;
 
@@ -127,7 +127,7 @@ app.post('/logout', (req, res) => {
 });
 
 
-// ------------------------- 이미지 업로드 API -----------------------
+//    이미지 업로드 API  
 app.post('/api/upload-image', upload.single('image'), async (req, res) => {
     try {
         if (!req.file)
@@ -147,7 +147,7 @@ app.post('/api/upload-image', upload.single('image'), async (req, res) => {
 });
 
 
-// ------------------------- 이미지 불러오기 API -----------------------
+//    이미지 불러오기 API  
 app.get('/api/BannerImg', async (req, res) => {
     try {
         const images = await BannerImg.find();
@@ -172,6 +172,6 @@ app.get('/api/BannerImg/latest', async (req, res) => {
 });
 
 
-// ------------------------- 서버 실행 -------------------------------
+//    서버 실행      
 const PORT = 3000;
 app.listen(PORT, () => console.log(`>>> Server running on http://localhost:${PORT}`));
