@@ -171,6 +171,99 @@ app.get('/api/BannerImg/latest', async (req, res) => {
     }
 });
 
+//   찜 저장 API
+app.post('/api/wish', async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: "로그인 필요" });
+    }
+
+    const { productId } = req.body;
+    const userId = req.session.user.id;
+
+    try {
+        await db.promise().query(
+            'INSERT INTO wish (user_id, product_id) VALUES (?, ?)',
+            [userId, productId]
+        );
+
+        res.json({ success: true });
+
+    } catch (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+            return res.status(409).json({ message: "이미 찜한 상품" });
+        }
+        console.error(err);
+        res.status(500).json({ message: "찜 저장 실패" });
+    }
+});
+
+//   찜 삭제 API
+app.delete('/api/wish/:productId', async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: "로그인 필요" });
+    }
+
+    const userId = req.session.user.id;
+    const productId = req.params.productId;
+
+    try {
+        await db.promise().query(
+            'DELETE FROM wish WHERE user_id = ? AND product_id = ?',
+            [userId, productId]
+        );
+
+        res.json({ success: true });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "찜 삭제 실패" });
+    }
+});
+
+//   찜 목록 조회 API
+app.get('/api/wish', async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: "로그인 필요" });
+    }
+
+    const userId = req.session.user.id;
+
+    try {
+        const [rows] = await db.promise().query(
+            'SELECT product_id FROM wish WHERE user_id = ?',
+            [userId]
+        );
+
+        res.json(rows.map(r => r.product_id));
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "찜 목록 조회 실패" });
+    }
+});
+
+app.post('/api/products/wish', async (req, res) => {
+    const ids = req.body.ids;
+
+    if (!ids || ids.length === 0) {
+        return res.json([]);
+    }
+
+    const sql = `
+        SELECT id, name, price, image
+        FROM product
+        WHERE id IN (${ids.map(() => '?').join(',')})
+    `;
+
+    try {
+        const [rows] = await db.promise().query(sql, ids);
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "상품 조회 실패" });
+    }
+});
+
 
 //    서버 실행      
 const PORT = 3000;

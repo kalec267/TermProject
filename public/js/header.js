@@ -10,6 +10,9 @@ async function renderHeader() {
 
     // 기본 메뉴(로그인 사용자 공통)
     let html = `
+      <li class="header_content" onclick="location.href='wishlist.html'" style="cursor:pointer;">
+          <i class="fa-solid fa-heart fa-lg"></i>
+      </li>
       <li class="header_content">
           <i class="fa-solid fa-cart-plus fa-lg"></i>
       </li>

@@ -9,6 +9,9 @@
         <script src="https://kit.fontawesome.com/1031601f06.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/pages/main.css">
         <link rel="stylesheet" href="css/components/footer.css">
+
+        <!-- ✅ 찜 버튼 CSS 추가 -->
+        <link rel="stylesheet" href="css/components/wish.css">
     </head>
 
     <body>
@@ -24,9 +27,7 @@
                 <div class="main_slider-container">
                     <span class="main_slider-text">STYLE IN EVERY DAY</span>
                     <div class="main_slider-image-container">
-
                         <img id="main-slider-img" class="main_slider-image" alt="main slider image">
-
                     </div>
                     <span class="main_slider-text">FOR WINTER SET-UP</span>
                 </div>
@@ -34,22 +35,17 @@
                     <i class="fa-solid fa-chevron-right fa-xl"></i>
                 </span>
             </section>
-            <!-- 슬라이더 진행도 -->
-            <!-- <div class="main_progress-bar"> <div class="main_progress-bar-item
-            main_progress-bar-item--visible"></div> <div
-            class="main_progress-bar-item"></div> <div class="main_progress-bar-item"></div>
-            </div> -->
 
             <!-- 메인 컨텐츠 영역 -->
             <section class="main_introduction">
                 <div class="main_intro-container-img">
                     <img class="main_intro-image" src="img/open.png" alt="">
                     <div class="main_intro-text-container">
-                        <h2 class="main_intro-title">[WINTER OPEN]
-                        </h2>
+                        <h2 class="main_intro-title">[WINTER OPEN]</h2>
                         <span class="main_intro-description">따뜻한 컬러로 완성하는 겨울 감성 스타일</span>
                     </div>
                 </div>
+
                 <div class="main_intro-container-img">
                     <img class="main_intro-image" src="img/스웨터.png" alt="">
                     <div class="main_intro-text-container">
@@ -57,9 +53,11 @@
                         <span class="main_intro-description">포근함이 필요한 계절, 따뜻한 스웨터로 분위기를 입어요.</span>
                     </div>
                 </div>
+
                 <div class="main_intro-container ">
                     <h2 class="main_intro-title main_intro-title--black">Term Project</h2>
                 </div>
+
                 <div class="main_intro-container-img">
                     <img class="main_intro-image" src="img/바지.png" alt="">
                     <div class="main_intro-text-container">
@@ -67,7 +65,6 @@
                         <span class="main_intro-description">어떤 톤에도 잘 어울리는, 데일리 크림 컬러 팬츠</span>
                     </div>
                 </div>
-
             </section>
 
             <section class="main_month-best">
@@ -76,9 +73,15 @@
                 <span class="main_best-sub-title">이달의 베스트 상품</span>
 
                 <div class="main_best-sub-container">
+
+                    <!-- ✅ 1번 상품 (기존 유지) -->
                     <article class="main_best-article">
                         <div class="main_article-img-container">
                             <img src="img/후드티.png">
+                            <button class="wish-btn" data-product-id="2">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                            
                         </div>
                         <div class="main_article-container">
                             <div class="main_article_color-item main_article_color-item01"></div>
@@ -92,18 +95,19 @@
                             <span class="main_article-product-description">#데일리 아이템</span>
                         </div>
                         <div class="main_article-container">
-                            <span class="main_article-total-price">34,200원 &nbsp;
-                            </span>
-                            <!-- 요소를 부가적으로 설명 해줄 때 small 태그 사용 -->
-                            <small class="main_article-previous-price">57,000&nbsp;
-                            </small>
-                            <span class="main_article-discount-rate">
-                                40%</span>
+                            <span class="main_article-total-price">34,200원</span>
+                            <small class="main_article-previous-price">57,000</small>
+                            <span class="main_article-discount-rate">40%</span>
                         </div>
                     </article>
+
+                    <!-- ✅ 2번 상품 (버튼 추가) -->
                     <article class="main_best-article">
                         <div class="main_article-img-container">
                             <img src="img/코트.jpg">
+                            <button class="wish-btn" data-product-id="2">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
                         </div>
                         <div class="main_article-container">
                             <div class="main_article_color-item main_article_color-item01"></div>
@@ -111,7 +115,6 @@
                             <div class="main_article_color-item main_article_color-item03"></div>
                             <div class="main_article_color-item main_article_color-item04"></div>
                             <div class="main_article_color-item main_article_color-item05"></div>
-                            <div class="main_article_color-item main_article_color-item06"></div>
                         </div>
                         <div class="main_article-container">
                             <h2 class="main_article-product-name">캐시미어 코트</h2>
@@ -120,16 +123,17 @@
                             <span class="main_article-product-description">#캐시미어 #코트</span>
                         </div>
                         <div class="main_article-container">
-                            <span class="main_article-total-price">299,000원&nbsp;</span>
-                            <!-- 요소를 부가적으로 설명 해줄 때 small 태그 사용 -->
-                            <small class="main_article-previous-price">&nbsp;</small>
-                            <span class="main_article-discount-rate"></span>
+                            <span class="main_article-total-price">299,000원</span>
                         </div>
                     </article>
 
+                    <!-- ✅ 3번 상품 (버튼 추가) -->
                     <article class="main_best-article">
                         <div class="main_article-img-container">
                             <img src="img/가디건.png">
+                            <button class="wish-btn" data-product-id="3">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
                         </div>
                         <div class="main_article-container">
                             <div class="main_article_color-item badge"></div>
@@ -141,16 +145,19 @@
                             <span class="main_article-product-description">#가을 #따뜻한</span>
                         </div>
                         <div class="main_article-container">
-                            <span class="main_article-total-price">63,200&nbsp;</span>
-                            <!-- 요소를 부가적으로 설명 해줄 때 small 태그 사용 -->
-                            <small class="main_article-previous-price">79,000원&nbsp;</small>
+                            <span class="main_article-total-price">63,200</span>
+                            <small class="main_article-previous-price">79,000원</small>
                             <span class="main_article-discount-rate">20%</span>
                         </div>
                     </article>
 
+                    <!-- ✅ 4번 상품 (버튼 추가) -->
                     <article class="main_best-article">
                         <div class="main_article-img-container">
                             <img src="img/트렌치코트화보.png">
+                            <button class="wish-btn" data-product-id="4">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
                         </div>
                         <div class="main_article-container">
                             <div class="main_article_color-item badge"></div>
@@ -162,9 +169,8 @@
                             <span class="main_article-product-description">#가을남자</span>
                         </div>
                         <div class="main_article-container">
-                            <span class="main_article-total-price">134,100원&nbsp;</span>
-                            <!-- 요소를 부가적으로 설명 해줄 때 small 태그 사용 -->
-                            <small class="main_article-previous-price">149,000&nbsp;</small>
+                            <span class="main_article-total-price">134,100원</span>
+                            <small class="main_article-previous-price">149,000</small>
                             <span class="main_article-discount-rate">10%</span>
                         </div>
                     </article>
@@ -180,66 +186,30 @@
         <script src="js/check-login.js"></script>
         <script src="js/header.js"></script>
 
+        <!-- 찜 기능 -->
+        <script src="js/wish.js"></script>
+
         <script>
-            // header.html 파일을 불러와 삽입 header.html 불러오기
             fetch('header.html')
                 .then(res => res.text())
                 .then(data => {
-                    document
-                        .getElementById('header')
-                        .innerHTML = data;
-
-                    // header.html이 DOM에 추가된 다음 header.js 로드
+                    document.getElementById('header').innerHTML = data;
                     const script = document.createElement('script');
                     script.src = 'js/header.js';
-                    document
-                        .body
-                        .appendChild(script);
-                })
-                .catch(err => console.error('헤더 로드 오류:', err));
-
-            // loadFooter.js
-            async function loadComponent(url, targetId) {
-                try {
-                    const response = await fetch(url);
-                    // HTML 텍스트를 가져옵니다.
-                    const html = await response.text();
-
-                    // 지정된 ID를 가진 요소의 내부에 HTML을 삽입합니다.
-                    document
-                        .getElementById(targetId)
-                        .innerHTML = html;
-                } catch (error) {
-                    console.error('Error loading component:', error);
-                }
-            }
-
-            // 페이지가 로드된 후 실행
-            document.addEventListener('DOMContentLoaded', () => {
-                // 'footer.html' 파일의 내용을 'mainFooter' ID를 가진 <main> 요소에 삽입
-                loadComponent('footer.html', 'mainFooter');
-            });
+                    document.body.appendChild(script);
+                });
         </script>
 
         <script>
             async function loadMainSliderImage() {
-                try {
-                    const res = await fetch('/api/bannerimg/latest');
-                    const latestImage = await res.json();
-
-                    if (latestImage && latestImage.imageUrl) {
-                        document
-                            .getElementById('main-slider-img')
-                            .src = latestImage.imageUrl;
-                    }
-                } catch (err) {
-                    console.error("슬라이더 이미지 로드 실패:", err);
+                const res = await fetch('/api/bannerimg/latest');
+                const latestImage = await res.json();
+                if (latestImage && latestImage.imageUrl) {
+                    document.getElementById('main-slider-img').src = latestImage.imageUrl;
                 }
             }
-
             loadMainSliderImage();
         </script>
 
     </body>
-
 </html>
