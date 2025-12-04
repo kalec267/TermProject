@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/pages/main.css">
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main class="cart-container">
+        <h1 class="cart-title">내 장바구니</h1>
+
+        <div class="cart-layout">
+            <!-- 상품 목록 -->
+            <div class="cart-list" id="cartList"></div>
+
+            <!-- 결제 요약 -->
+            <div class="cart-summary">
+                <h2>결제 요약</h2>
+                <div class="summary-item">
+                    <span>총 상품금액</span>
+                    <span id="totalPrice">0원</span>
+                </div>
+                <div class="summary-item">
+                    <span>배송비</span>
+                    <span>무료</span>
+                </div>
+                <div class="summary-total">
+                    <span>결제금액</span>
+                    <span id="finalPrice">0원</span>
+                </div>
+                <button class="order-btn">주문하기</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/cart.js"></script>
+    <script src="js/header.js"></script>
+</body>
+</html>

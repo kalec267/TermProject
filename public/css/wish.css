@@ -14,6 +14,10 @@
     transition: transform 0.15s ease;
 }
 
+.wish-title {
+    font-size: 25px;
+}
+
 .wish-btn:hover {
     transform: scale(1.1);
 }

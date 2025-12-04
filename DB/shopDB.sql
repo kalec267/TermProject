@@ -1,7 +1,7 @@
 create database shop default character set utf8mb4;
 use shop;
 
-CREATE TABLE user (
+CREATE TABLE users (
     userNum INT AUTO_INCREMENT COMMENT '사용자 고유 번호',
     userName VARCHAR(50) NOT NULL COMMENT '사용자 이름',
     userId VARCHAR(50) NOT NULL UNIQUE COMMENT '사용자 ID (로그인 시 사용, 중복 불가)',
@@ -35,4 +35,13 @@ CREATE TABLE wish (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     UNIQUE KEY unique_wish (user_id, product_id)
-);wish
+);
+
+CREATE TABLE cart (
+    cartId INT AUTO_INCREMENT PRIMARY KEY,
+    userId VARCHAR(50) NOT NULL,
+    productId INT NOT NULL,
+    quantity INT DEFAULT 1,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_cart (userId, productId)
+);

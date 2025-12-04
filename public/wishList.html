@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>찜한 상품</title>
-    <link rel="stylesheet" href="css/wish.css">
+    <link rel="stylesheet" href="css/pages/main.css">
     <script src="https://kit.fontawesome.com/1031601f06.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
-    <h2 class="wish-title">❤️ 내가 찜한 상품</h2>
+    <div id="header"></div>
+    <h1 class="wish-title">❤️ 내가 찜한 상품</h1>
 
     <div class="wish-container" id="wishContainer"></div>
 
     <script src="js/wish-list.js"></script>
+
+    <script>
+            fetch('header.html')
+                .then(res => res.text())
+                .then(data => {
+                    document.getElementById('header').innerHTML = data;
+                    const script = document.createElement('script');
+                    script.src = 'js/header.js';
+                    document.body.appendChild(script);
+                });
+        </script>
 </body>
 </html>

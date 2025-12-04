@@ -63,6 +63,68 @@ const BannerImgSchema = new mongoose.Schema({
 // << 여기 중요!!! 컬렉션명 직접 지정: 'bannerimg' >>
 const BannerImg = mongoose.model('BannerImg', BannerImgSchema, 'bannerimg');
 
+// 회원가입 API 
+app.post('/api/signup', async (req, res) => {
+    const {
+        userName,
+        userId,
+        userPassword,
+        userEmail,
+        userPhone,
+        userAddress,
+        userZipCode
+    } = req.body;
+
+    try {
+        // 1️⃣ 아이디 중복 검사
+        const [idCheck] = await db.promise().query(
+            'SELECT userId FROM users WHERE userId = ?',
+            [userId]
+        );
+
+        if (idCheck.length > 0) {
+            return res.status(409).send("이미 사용 중인 아이디입니다.");
+        }
+
+        // 2️⃣ 이메일 중복 검사
+        const [emailCheck] = await db.promise().query(
+            'SELECT userEmail FROM users WHERE userEmail = ?',
+            [userEmail]
+        );
+
+        if (emailCheck.length > 0) {
+            return res.status(409).send("이미 사용 중인 이메일입니다.");
+        }
+
+        // 3️⃣ 비밀번호 암호화
+        const hashedPassword = await bcrypt.hash(userPassword, 10);
+
+        // 4️⃣ DB 저장
+        await db.promise().query(
+            `INSERT INTO users 
+            (userName, userId, userPassword, userEmail, userPhone, userAddress, userZipCode)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                userName,
+                userId,
+                hashedPassword,
+                userEmail,
+                userPhone,
+                userAddress,
+                userZipCode
+            ]
+        );
+
+        // 5️⃣ 성공 응답
+        res.send("회원가입 성공");
+
+    } catch (err) {
+        console.error("회원가입 오류:", err);
+        res.status(500).send("서버 오류 발생");
+    }
+});
+
+
 
 //    로그인 API     
 app.post('/api/login', async (req, res) => {
@@ -264,6 +326,79 @@ app.post('/api/products/wish', async (req, res) => {
     }
 });
 
+
+
+
+const isLogin = (req, res, next) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: "로그인 필요" });
+    }
+    next();
+};
+
+// ✅ 장바구니 추가
+app.post("/api/cart", isLogin, async (req, res) => {
+    const { productId } = req.body;
+    const userId = req.session.user.id;
+
+    const [rows] = await db.promise().query(
+        "SELECT * FROM cart WHERE userId=? AND productId=?",
+        [userId, productId]
+    );
+
+    if (rows.length > 0) {
+        await db.promise().query(
+            "UPDATE cart SET quantity = quantity + 1 WHERE userId=? AND productId=?",
+            [userId, productId]
+        );
+    } else {
+        await db.promise().query(
+            "INSERT INTO cart(userId, productId) VALUES (?,?)",
+            [userId, productId]
+        );
+    }
+
+    res.json({ success: true });
+});
+
+// ✅ 장바구니 조회
+app.get("/api/cart", isLogin, async (req, res) => {
+    const userId = req.session.user.id;
+
+    const [rows] = await db.promise().query(
+        "SELECT productId, quantity FROM cart WHERE userId=?",
+        [userId]
+    );
+
+    res.json(rows);
+});
+
+// ✅ 장바구니 삭제
+app.delete("/api/cart/:id", isLogin, async (req, res) => {
+    const userId = req.session.user.id;
+    const productId = req.params.id;
+
+    await db.promise().query(
+        "DELETE FROM cart WHERE userId=? AND productId=?",
+        [userId, productId]
+    );
+
+    res.json({ success: true });
+});
+
+// ✅ 수량 변경
+app.patch("/api/cart/:id", isLogin, async (req, res) => {
+    const { quantity } = req.body;
+    const userId = req.session.user.id;
+    const productId = req.params.id;
+
+    await db.promise().query(
+        "UPDATE cart SET quantity=? WHERE userId=? AND productId=?",
+        [quantity, userId, productId]
+    );
+
+    res.json({ success: true });
+});
 
 //    서버 실행      
 const PORT = 3000;

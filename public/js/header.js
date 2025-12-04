@@ -13,7 +13,7 @@ async function renderHeader() {
       <li class="header_content" onclick="location.href='wishlist.html'" style="cursor:pointer;">
           <i class="fa-solid fa-heart fa-lg"></i>
       </li>
-      <li class="header_content">
+      <li class="header_content" onclick="location.href='cart.html'" style="cursor:pointer;">
           <i class="fa-solid fa-cart-plus fa-lg"></i>
       </li>
       <li class="header_content" style="cursor:pointer;" onclick="logoutUser()">
@@ -22,7 +22,7 @@ async function renderHeader() {
       <li class="header_content">${name}님</li>
     `;
 
-    // ⭐ 관리자 전용 메뉴 추가
+    // 관리자 전용 메뉴 추가
     if (role === "admin") {
       html += `
         <li class="header_content" 
@@ -50,6 +50,15 @@ async function renderHeader() {
     `;
   }
 }
+
+document.addEventListener("click", function (e) {
+    const cartBtn = document.getElementById("cartBtn");
+    if (!cartBtn) return;
+
+    cartBtn.addEventListener("click", () => {
+        location.href = "cart.html";
+    });
+});
 
 async function logoutUser() {
   await fetch('/logout', { method: 'POST' });

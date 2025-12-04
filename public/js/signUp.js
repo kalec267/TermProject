@@ -61,14 +61,26 @@ function signUp() {
             // 서버에서 전달받은 오류 메시지를 표시합니다.
             alert(`${err.message}`);
             if (err.message.includes("아이디")) {
-                document.getElementById("userId").focus();
-                document.getElementById("userId").select(); // 선택까지 해주면 사용자 편의성 향상
+                document
+                    .getElementById("userId")
+                    .focus();
+                document
+                    .getElementById("userId")
+                    .select(); // 선택까지 해주면 사용자 편의성 향상
             } else if (err.message.includes("이메일")) {
-                document.getElementById("userEmail").focus();
-                document.getElementById("userEmail").select();
+                document
+                    .getElementById("userEmail")
+                    .focus();
+                document
+                    .getElementById("userEmail")
+                    .select();
             } else if (err.message.includes("전화번호")) {
-                document.getElementById("userPhone").focus();
-                document.getElementById("userPhone").select();
+                document
+                    .getElementById("userPhone")
+                    .focus();
+                document
+                    .getElementById("userPhone")
+                    .select();
             }
         });
 }
@@ -242,18 +254,18 @@ registrationForm.addEventListener('submit', e => {
 });
 
 // header.html 파일을 불러와 삽입 header.html 불러오기
-            fetch('header.html')
-                .then(res => res.text())
-                .then(data => {
-                    document
-                        .getElementById('header')
-                        .innerHTML = data;
+fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+        document
+            .getElementById('header')
+            .innerHTML = data;
 
-                    // header.html이 DOM에 추가된 다음 header.js 로드
-                    const script = document.createElement('script');
-                    script.src = 'js/header.js';
-                    document
-                        .body
-                        .appendChild(script);
-                })
-                .catch(err => console.error('헤더 로드 오류:', err));
+        // header.html이 DOM에 추가된 다음 header.js 로드
+        const script = document.createElement('script');
+        script.src = 'js/header.js';
+        document
+            .body
+            .appendChild(script);
+    })
+    .catch(err => console.error('헤더 로드 오류:', err));
