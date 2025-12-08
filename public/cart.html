@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <title>장바구니</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="css/pages/main.css">
+    <link rel="stylesheet" href="css/pages/cart.css">
 </head>
 <body>
-
     <div id="header"></div>
 
     <main class="cart-container">
         <h1 class="cart-title">내 장바구니</h1>
 
         <div class="cart-layout">
-            <!-- 상품 목록 -->
-            <div class="cart-list" id="cartList"></div>
+            <div class="cart-list" id="cartList">
+                <!-- 장바구니 상품이 JS로 렌더링됨 -->
+            </div>
 
-            <!-- 결제 요약 -->
             <div class="cart-summary">
                 <h2>결제 요약</h2>
                 <div class="summary-item">
@@ -38,7 +37,10 @@
         </div>
     </main>
 
+    <footer id="mainFooter">
+        <div id="footer"></div>
+    </footer>
+
     <script src="js/cart.js"></script>
-    <script src="js/header.js"></script>
 </body>
 </html>

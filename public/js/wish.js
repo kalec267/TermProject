@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const wishButtons = document.querySelectorAll(".wish-btn");
     const container = document.getElementById("wishContainer");
 
-    // ✅ 로그인 여부 확인
+    // 로그인 여부 확인
     async function checkLogin() {
         const res = await fetch("http://localhost:3000/check-login", {
             credentials: "include"
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return data.loggedIn;
     }
 
-    // ✅ DB에서 찜 목록 불러오기
+    // DB에서 찜 목록 불러오기
     async function loadWishFromDB() {
         const res = await fetch("http://localhost:3000/api/wish", {
             credentials: "include"
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ===============================
-    // ✅ 메인 페이지 찜 버튼 처리
+    // 메인 페이지 찜 버튼 처리
     // ===============================
     wishButtons.forEach(btn => {
         const id = Number(btn.dataset.productId);
@@ -42,14 +42,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         btn.addEventListener("click", async () => {
             const login = await checkLogin();
 
-            // ✅ 비로그인 차단
+            // 비로그인 차단
             if (!login) {
                 alert("로그인이 필요합니다.");
                 location.href = "login.html";
                 return;
             }
 
-            // ✅ 이미 찜한 경우 → 삭제
+            // 이미 찜한 경우 → 삭제
             if (btn.classList.contains("active")) {
                 await fetch(`http://localhost:3000/api/wish/${id}`, {
                     method: "DELETE",
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 btn.classList.remove("active");
                 btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
             }
-            // ✅ 찜 추가
+            // 찜 추가
             else {
                 await fetch("http://localhost:3000/api/wish", {
                     method: "POST",
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // ===============================
-    // ✅ 찜 목록 페이지 처리
+    // 찜 목록 페이지 처리
     // ===============================
     if (!container) return; // 찜 목록 페이지가 아니면 종료
 

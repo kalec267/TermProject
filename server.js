@@ -26,7 +26,7 @@ app.use(session({
     }
 }));
 
-//   MongoDB 연결
+//   MongoDB 연결    
 mongoose
     .connect('mongodb://localhost:27017/img')
     .then(() => console.log(">>> MongoDB Connected"))

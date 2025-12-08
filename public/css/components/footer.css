@@ -3,7 +3,7 @@ footer {
     color: #fff; /* 글씨 색 흰색 */
     text-align: center;
     padding: 10px 0;
-    margin-top: 10px;
+    margin-top: auto;
 }
 
 #footer_content p {
@@ -28,4 +28,5 @@ footer {
 #footer_menu li a:hover {
     text-decoration: underline;
 }
+
 

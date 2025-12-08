@@ -64,3 +64,16 @@ fetch('header.html')
             .appendChild(script);
     })
     .catch(err => console.error('헤더 로드 오류:', err));
+
+fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+        document
+            .getElementById('footer')
+            .innerHTML = data;
+        const script = document.createElement('script');
+        script.src = 'js/footer.js';
+        document
+            .body
+            .appendChild(script);
+    });
